@@ -1,9 +1,9 @@
 cd Desktop
-mkdir Swadha_rep
-cd Swadha_rep
+mkdir New_directory
+cd New_Directory
 touch TestFile
 git init
-git remote add origin 'https://swadha-makholia:cutashley1193@github.com/swadha-makholia/Swadha_rep.git'
+git remote add origin 'https://URL'
 git add .
-git commit -m "1467882093926"
-git push 'https://swadha-makholia:cutashley1193@github.com/swadha-makholia/Swadha_rep.git' master
+git commit -m "TIME_STAMP"
+git push 'https://URL' master
