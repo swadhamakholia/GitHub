@@ -1,3 +1,5 @@
+// Github Page to create a new Repository.
+
 package pages;
 
 import org.openqa.selenium.WebDriver;
@@ -6,39 +8,39 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class New_RepoPage {
-		
-		WebDriver driver;
-	
-		@FindBy(id="repository_name")
-		WebElement Rep_name;
 
-		 @FindBy(xpath="//div[@class='with-permission-fields']/button")
-		 WebElement CreateRepo;
-		 
-		public New_RepoPage (WebDriver driver){
+	WebDriver driver;
 
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
+	@FindBy(id="repository_name")
+	WebElement Rep_name;
 
-	    }
-		
-		public void setRepName(String RepoName){
+	@FindBy(xpath="//div[@class='with-permission-fields']/button")
+	WebElement CreateRepo;
 
-			Rep_name.sendKeys(RepoName); 		// Sets username in text-box
-		}
-	 
-		public String getRepTitle(){
-		
- 		return    driver.getTitle();  			//Return the title of Home Page
-		}
-	
-		public void ClickCreateRepo(){
+	public New_RepoPage (WebDriver driver){
 
-			CreateRepo.click();  
-  	   
-		}
-	
-	
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+
+	}
+
+	public void setRepName(String RepoName){
+
+		Rep_name.sendKeys(RepoName); 		// Sets username in text-box
+	}
+
+	public String getRepTitle(){
+
+		return    driver.getTitle();  		//Return the title of Home Page
+	}
+
+	public void ClickCreateRepo(){
+
+		CreateRepo.click();  
+
+	}
+
+
 
 }
 

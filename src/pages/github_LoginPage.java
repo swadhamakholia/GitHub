@@ -1,3 +1,5 @@
+// Github Login Page
+
 package pages;
 
 import org.openqa.selenium.WebDriver;
@@ -14,11 +16,11 @@ public class github_LoginPage {
 
 	@FindBy(name="password")
 	WebElement passWord;
-	
+
 	@FindBy(name="commit")
 	WebElement signIn;
 
-	
+
 	public github_LoginPage(WebDriver driver){
 
 		this.driver = driver;

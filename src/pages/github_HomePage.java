@@ -1,3 +1,5 @@
+// GitHub Home Page.
+
 package pages;
 
 import org.openqa.selenium.WebDriver;
@@ -6,30 +8,30 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class github_HomePage {
-	
-	 WebDriver driver;
-	 
-	 @FindBy(xpath="//a[text()='Sign in']")
-	 WebElement signin;
 
-	 public github_HomePage (WebDriver driver){
+	WebDriver driver;
 
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
+	@FindBy(xpath="//a[text()='Sign in']")
+	WebElement signin;
 
-	    }
-	 
-	 public String getHomeTitle(){
+	public github_HomePage (WebDriver driver){
 
- 		return    driver.getTitle();  //Return the title of Home Page
- 	}
-	
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+
+	}
+
+	public String getHomeTitle(){
+
+		return    driver.getTitle();  //Return the title of Home Page
+	}
+
 	public void ClickSignIn(){
 
-  	   signin.click();  
-  
+		signin.click();  
+
 	}
-	
-	
+
+
 
 }

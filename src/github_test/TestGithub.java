@@ -1,12 +1,15 @@
+// Test cases for the GitHub automation.
+
 package github_test;
-import pages.New_RepoPage;
+
+import pages.*;
 import ReadInfo.ReadFile;
-import pages.github_HomePage;
-import pages.github_LoginPage;
-import pages.user_homePage;
+import commandExec.commandExec;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,8 +21,8 @@ public class TestGithub {
 	github_LoginPage login_obj;
 	user_homePage user_obj;
 	New_RepoPage rep_obj;
-
-
+	Created_repoPage Created_obj;
+	Creating_repo Creating_obj;
 
 	@BeforeTest
 	public void setup(){
@@ -31,6 +34,7 @@ public class TestGithub {
 		driver.get("https://github.com/");
 
 	}
+
 	@Test
 	public void testGithubHome(){
 
@@ -72,5 +76,40 @@ public class TestGithub {
 
 	}
 
+	@Test(dependsOnMethods= {"testNewRepoPage"})
+	public void testLinkPage() {
 
+		Creating_obj = new Creating_repo(driver);													
+		Assert.assertEquals(Creating_obj.isRemoteLinkDisplayed(), true);
+
+	}
+
+	@Test(dependsOnMethods= {"testNewRepoPage"})
+	public void CommandExec(){
+		System.out.println((new java.util.Date()).getTime());
+		List<String> commands = new ArrayList<String>();
+		commands.add("cd Desktop");
+		commands.add("mkdir "+ReadFile.Read_file("repository"));
+		commands.add("cd "+ReadFile.Read_file("repository"));
+		commands.add("touch "+ReadFile.Read_file("filename"));
+		commands.add("git init");		
+		commands.add("git remote add origin 'https://"+ReadFile.Read_file("username")+":"+ReadFile.Read_file("password")+"@github.com/"+ReadFile.Read_file("username")+"/"+ReadFile.Read_file("repository")+".git'");
+		commands.add("git add .");
+		commands.add("git commit -m \""+(new java.util.Date()).getTime()+"\"");
+		commands.add("git push "+"'https://"+ReadFile.Read_file("username")+":"+ReadFile.Read_file("password")+"@github.com/"+ReadFile.Read_file("username")+"/"+ReadFile.Read_file("repository")+".git'"+" master");
+		ReadFile.writeToFile("src/ScriptCommands.sh",commands);
+		commandExec gitCommands = new commandExec();
+		String[] str_arr = {"sh","src/ScriptCommands.sh"};
+		System.out.println(gitCommands.execCommand(str_arr));
+	}
+
+	@Test(dependsOnMethods= {"CommandExec"})
+	public void TestPushedFile() throws InterruptedException{
+		Created_obj = Creating_obj.Refresh();
+		Assert.assertEquals(ReadFile.Read_file("filename"), Created_obj.getFileName());
+
+	}
 }
+
+
+
